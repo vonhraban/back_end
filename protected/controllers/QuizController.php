@@ -28,7 +28,7 @@ class QuizController extends GxController
         if (isset($_POST['Quiz'])) {
             $model->setAttributes($_POST['Quiz']);
             $relatedData = array(
-                'questions' => $_POST['Quiz']['questions'] === '' ? null : $_POST['Quiz']['questions'],
+                'questions' => !isset($_POST['Quiz']['questions']) ? null : $_POST['Quiz']['questions'],
             );
 
             if ($model->saveWithRelated($relatedData)) {

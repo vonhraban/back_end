@@ -15,9 +15,11 @@ class Quiz extends BaseQuiz
     
     public function beforeSave()
     {
-        if ($this->isNewRecord()) {
-            $tihs->hash = md5($this->quiz_id);
+        if ($this->isNewRecord) {
+            $this->hash = md5($this->quiz_id);
         }
+        
+        return parent::beforeSave();
     }
 
 }
