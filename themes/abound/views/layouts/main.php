@@ -46,6 +46,7 @@
 	  $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.knob.js');
 	  $cs->registerScriptFile($baseUrl.'/js/plugins/jquery.masonry.min.js');
 	  $cs->registerScriptFile($baseUrl.'/js/styleswitcher.js');
+          $cs->registerScriptFile(Yii::app()->baseUrl . '/js/knockout-2.2.1.js');
 	?>
   </head>
 

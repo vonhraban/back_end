@@ -5,21 +5,32 @@ class QuizController extends GxController
 
     public function actionView($id)
     {
-        $dataProvider = new CActiveDataProvider('question', array(
-            'criteria' => array(
-                'with' => array('quizs'),
-                'condition' => 'quizs.quiz_id = :quiz_id',
-                'params' => array(':quiz_id' => $id),
-                'together' => true,
-            )
-        ));
+        if (isset($_GET['question_sort'])) {
+            switch ($_GET['question_sort']) {
+                case 'score' : $sort = 't.score'; break;
+                case 'difficulty' : $sort = 't.difficulty'; break;
+                default : $sort = 't.name';
+            }
+        } else {
+            $sort = 't.name';
+        }
+        
+        $criteria = new CDbCriteria();
+        $criteria->with = 'quizs';
+        $criteria->condition = 'quizs.quiz_id = :quiz_id';
+        $criteria->order = $sort;
+        $criteria->params = array(
+            ':quiz_id' => $id,
+        );
+        $criteria->together = true;
+        $questions = Question::model()->findAll($criteria);
         
         $this->render('view', array(
             'model' => $this->loadModel($id, 'Quiz'),
-            'dataProvider' => $dataProvider,
+            'questions' => $questions,
         ));
     }
-
+    
     public function actionCreate()
     {
         $model = new Quiz;
@@ -50,7 +61,7 @@ class QuizController extends GxController
         if (isset($_POST['Quiz'])) {
             $model->setAttributes($_POST['Quiz']);
             $relatedData = array(
-                'questions' => $_POST['Quiz']['questions'] === '' ? null : $_POST['Quiz']['questions'],
+                'questions' => !isset($_POST['Quiz']['questions']) ? null : $_POST['Quiz']['questions'],
             );
 
             if ($model->saveWithRelated($relatedData)) {

@@ -1,4 +1,8 @@
 <?php
+$cs = Yii::app()->getClientScript()->registerScriptFile(Yii::app()->baseUrl . '/js/quiz/view.vm.js', CClientScript::POS_END);
+?>
+
+<?php
 $this->breadcrumbs = array(
     $model->label(2) => array('index'),
     GxHtml::valueEx($model),
@@ -37,28 +41,42 @@ $this->widget('zii.widgets.CDetailView', array(
 <?php
 $this->widget('zii.widgets.jui.CJuiButton', array(
     'name' => 'button1',
+    'buttonType' => 'link',
     'caption' => 'Kérdés hozzáadása',
     'value' => 'button1',
     'htmlOptions' => array('class' => 'btn btn-primary'),
-    'onclick' => new CJavaScriptExpression('function(){alert("Save button has been clicked"); this.blur(); return false;}'),
+    'url' => array('quiz/addQuestion'),
+    //'onclick' => new CJavaScriptExpression('function(){alert("Save button has been clicked"); this.blur(); return false;}'),
 ));
 ?>
-<?php
-$this->widget('zii.widgets.grid.CGridView', array(
-    /* 'type'=>'striped bordered condensed', */
-    'itemsCssClass' => 'table table-hover',
-    'dataProvider' => $dataProvider,
-    'template' => "{items}",
-    'columns' => array(
-        array('name' => 'name', 'header' => 'Név'),
-        array('name' => 'score', 'header' => 'Pontszám'),
-        array('name' => 'difficulty', 'header' => 'Nehézség'),
-        array(
-            'class' => 'CLinkColumn',
-            'label' => 'Törlés',
-            'header' => 'Töröl',
-            'urlExpression' => 'Yii::app()->createUrl("quiz/view",array("id"=>$data->question_id))'
-        ),
-    ),
-));
-?>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th id="yw1_c0">
+                <a class="sort-link" href="/infiniteloop/back_end/index.php/quiz/1?question_sort=name">Név</a>
+            </th>
+            <th id="yw1_c1">
+                <a class="sort-link" href="/infiniteloop/back_end/index.php/quiz/1?question_sort=score">Pontszám</a>
+            </th>
+            <th id="yw1_c2">
+                <a class="sort-link" href="/infiniteloop/back_end/index.php/quiz/1?question_sort=difficulty">Nehézség</a>
+            </th>
+            <th class="link-column" id="yw1_c3">
+                Töröl
+            </th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: questions">
+        <tr class="odd">
+            <td data-bind="text: name" /></td>
+            <td data-bind="text: score" /></td>
+            <td data-bind="text: difficulty"></td>
+            <td><a href="#" data-bind="click: $root.removeQuestion">Törlés</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    //Kezdő adatok
+    var initQuestions = <?=CJSON::encode($questions)?>;
+</script>
