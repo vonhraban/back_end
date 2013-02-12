@@ -1,9 +1,3 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 /**
  * 
  * @param {string} name
@@ -13,7 +7,7 @@
 function Question(name, score, difficulty)
 {
     var self = this;
-    self.name = name;
+    self.name = ko.observable(name);
     self.score = score;
     self.difficulty = difficulty;
 }

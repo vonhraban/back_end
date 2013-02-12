@@ -1,5 +1,5 @@
 <?php
-$cs = Yii::app()->getClientScript()->registerScriptFile(Yii::app()->baseUrl . '/js/quiz/view.vm.js', CClientScript::POS_END);
+Yii::app()->getClientScript()->registerScriptFile(Yii::app()->baseUrl . '/js/quiz/view.vm.js', CClientScript::POS_END);
 ?>
 
 <?php
@@ -45,7 +45,7 @@ $this->widget('zii.widgets.jui.CJuiButton', array(
     'caption' => 'Kérdés hozzáadása',
     'value' => 'button1',
     'htmlOptions' => array('class' => 'btn btn-primary'),
-    'url' => array('quiz/addQuestion'),
+    'url' => array('quiz/addQuestion', 'id' => $model->quiz_id),
     //'onclick' => new CJavaScriptExpression('function(){alert("Save button has been clicked"); this.blur(); return false;}'),
 ));
 ?>

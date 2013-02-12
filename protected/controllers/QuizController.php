@@ -106,5 +106,39 @@ class QuizController extends GxController
             'model' => $model,
         ));
     }
+    
+    /**
+     * Új kérdést lehet hozzáadni a quiz-hez
+     * 
+     * @param integer $id
+     */
+    public function actionAddQuestion($id)
+    {
+        $model = $this->loadModel($id, 'Quiz');
+        
+        $questions = new CActiveDataProvider('question');
+        $questions->pagination->pageSize = 2;
+        
+        $this->render('addQuestion', array(
+            'model' => $model,
+            'questions' => $questions,
+        ));
+    }
+    
+    public function actionAddQuestionAjax($quiz_id, $question_id)
+    {
+        $question = Question::model()->findByPk($question_id);
+        $quiz = Quiz::model()->findByPk($quiz_id);
+        if ($question->isInQuiz($quiz_id)) {
+            $question->deleteElements('quizs', array($quiz_id));
+        } else {
+            $question->addElements('quizs', array($quiz_id));
+        }
+        
+        echo $this->renderPartial('_question', array(
+            'data' => $question,
+            'quiz' => $quiz
+        ));
+    }
 
 }
