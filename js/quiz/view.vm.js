@@ -4,12 +4,13 @@
  * @param {integer} score
  * @param {integer} difficulty
  */
-function Question(name, score, difficulty)
+function Question(question_id, name, score, difficulty)
 {
     var self = this;
     self.name = ko.observable(name);
     self.score = score;
     self.difficulty = difficulty;
+    self.question_id = question_id;
 }
 
 // Overall viewmodel for this screen, along with initial state
@@ -19,16 +20,20 @@ function QuestionsViewModel() {
     // Editable data
     self.questions = ko.observableArray([]);
 
-    self.removeQuestion = function(question) { self.questions.destroy(question) }
+    self.removeQuestion = function(link, question) {
+        self.questions.destroy(question);
+        link = link.replace('replace_question_id', question.question_id);
+        $.get(link);
+    }
     
     //Kezdő adatok beállítása
     var mappedQuestions = $.map(
         initQuestions,
         function(item) {
-            return new Question(item.name, item.score, item.difficulty);
+            return new Question(item.question_id, item.name, item.score, item.difficulty);
         }
     );
     self.questions(mappedQuestions);
 }
-
-ko.applyBindings(new QuestionsViewModel());
+var questionVM = new QuestionsViewModel();
+ko.applyBindings(questionVM);

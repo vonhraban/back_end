@@ -1,5 +1,6 @@
 <?php
 Yii::app()->getClientScript()->registerScriptFile(Yii::app()->baseUrl . '/js/quiz/view.vm.js', CClientScript::POS_END);
+$link = Yii::app()->createUrl('quiz/addQuestionAjax', array('quiz_id' => $model->quiz_id, 'question_id' => 'replace_question_id'));
 ?>
 
 <?php
@@ -71,7 +72,7 @@ $this->widget('zii.widgets.jui.CJuiButton', array(
             <td data-bind="text: name" /></td>
             <td data-bind="text: score" /></td>
             <td data-bind="text: difficulty"></td>
-            <td><a href="#" data-bind="click: $root.removeQuestion">Törlés</a></td>
+            <td><a href="#" data-bind="click: function(){questionVM.removeQuestion('<?=$link?>', this)}">Törlés</a></td>
         </tr>
     </tbody>
 </table>

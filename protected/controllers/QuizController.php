@@ -125,6 +125,14 @@ class QuizController extends GxController
         ));
     }
     
+    /**
+     * Ajax-al hozzáad egy kérdést a quiz-hez, vagy elvesz.
+     * Ha már benne volt az adott kérdés a quiz-ben, akkor elvesz.
+     * Egyébként pedig hozzáadja.
+     * 
+     * @param integer $quiz_id
+     * @param integer $question_id
+     */
     public function actionAddQuestionAjax($quiz_id, $question_id)
     {
         $question = Question::model()->findByPk($question_id);
@@ -140,5 +148,5 @@ class QuizController extends GxController
             'quiz' => $quiz
         ));
     }
-
+    
 }
