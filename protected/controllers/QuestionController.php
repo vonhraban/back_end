@@ -80,14 +80,14 @@ class QuestionController extends GxController
         $condition = '';
         if ($category == 'private') {
             $private_checked =  'checked="checked"';
-            $condition = 't.company_id = 1';
+            $condition = 't.company_id = ' . Yii::app()->user->companyId;
         }
         if ($category == 'public') {
-            echo '----------------------------LEFUT';
             $public_checked = 'checked="checked"';
             $condition = 't.company_id IS NULL';
         }
         if ($category == 'all') {
+            $condition = 't.company_id IS NULL OR t.company_id = ' . Yii::app()->user->companyId;
             $all_checked = 'checked="checked"';
         }
         $dataProvider = new CActiveDataProvider('Question', array(

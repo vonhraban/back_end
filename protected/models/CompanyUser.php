@@ -2,7 +2,17 @@
 
 class CompanyUser extends BaseCompanyUser
 {
-	public static function model($className=__CLASS__) {
-		return parent::model($className);
-	}
+
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+    
+    public function behaviors()
+    {
+        return array(
+            'BcryptBehavior',
+        );
+    }
+
 }

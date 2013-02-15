@@ -16,17 +16,19 @@ class UserIdentity extends CUserIdentity {
      * @return boolean whether authentication succeeds.
      */
     public function authenticate() {
-        $users = array(
-            // username => password
-            'demo' => 'demo',
-            'admin' => 'admin',
-        );
-        if (!isset($users[$this->username]))
+        $user = CompanyUser::model()->findByAttributes(array(
+            'email' => $this->username
+        ));
+        if (!$user)
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        else if ($users[$this->username] !== $this->password)
+        else if (!$user->verify($this->password))
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
-        else
+        else {
             $this->errorCode = self::ERROR_NONE;
+            $this->username =  $user->email;
+            Yii::app()->user->setState('id', $user->company_user_id);
+            Yii::app()->user->setState('companyId', $user->company_id);
+        }
         return !$this->errorCode;
     }
 

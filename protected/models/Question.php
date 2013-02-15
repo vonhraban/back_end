@@ -24,5 +24,15 @@ class Question extends BaseQuestion
         
         return $quizHasQuestion != 0;
     }
+    
+    /**
+     * Visszadja, hogy a kérdés publikus-e vagy sem
+     * 
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return $this->company_id == null;
+    }
 
 }

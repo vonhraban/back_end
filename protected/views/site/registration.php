@@ -3,25 +3,23 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
+$this->pageTitle=Yii::app()->name . ' - Regisztráció';
 $this->breadcrumbs=array(
-	'Login',
+	'Regisztráció',
 );
 ?>
 <div class="page-header">
-    <h1><small>Bejelentkezés az </small>InfinitLoop<small> fiókodba</small></h1>
+    <h1>InfiniteLoop <small>regisztráció</small></h1>
 </div>
 <div class="row-fluid">
 	
     <div class="span6 offset3">
 <?php
 	$this->beginWidget('zii.widgets.CPortlet', array(
-		'title'=>"Belépési adatok",
+		'title'=>"Regisztrációs adatok",
 	));
 	
 ?>
-
-
 
     <p>Töltsd ki a belépéshez szükséges adatokkal:</p>
     
@@ -35,31 +33,31 @@ $this->breadcrumbs=array(
     )); ?>
     
         <div class="row">
-            <?php echo $form->labelEx($model,'username'); ?>
-            <?php echo $form->textField($model,'username'); ?>
-            <?php echo $form->error($model,'username'); ?>
+            <?php echo $form->labelEx($model,'email'); ?>
+            <?php echo $form->textField($model,'email'); ?>
+            <?php echo $form->error($model,'email'); ?>
         </div>
     
         <div class="row">
             <?php echo $form->labelEx($model,'password'); ?>
             <?php echo $form->passwordField($model,'password'); ?>
             <?php echo $form->error($model,'password'); ?>
+        </div>
+        
+        <div class="row">
+            <?php echo $form->labelEx($model,'password_confirm'); ?>
+            <?php echo $form->passwordField($model,'password_confirm'); ?>
+            <?php echo $form->error($model,'password_confirm'); ?>
             <p class="hint">
                 Minden mező megadása kötelező!
             </p>
         </div>
     
-        <div class="row rememberMe">
-            <?php echo $form->checkBox($model,'rememberMe'); ?>
-            <?php echo $form->label($model,'rememberMe'); ?>
-            <?php echo $form->error($model,'rememberMe'); ?>
-        </div>
-    
         <div class="row buttons">
-            <?php echo CHtml::submitButton('Login',array('class'=>'btn btn btn-primary')); ?>
+            <?php echo CHtml::submitButton('Regisztráció',array('class'=>'btn btn btn-primary')); ?>
         </div>
         <p class="hint">
-            Ha még nincs felhasználó fiókod, akkor <?=  CHtml::link('itt létrehozhatsz egyet', array('site/registration'))?>.
+            Ha még nincs felhasználó fiókod, akkor <?=  CHtml::link('itt létrehozhatsz egyet', array('site/registraion'))?>.
         </p>
     
     <?php $this->endWidget(); ?>
