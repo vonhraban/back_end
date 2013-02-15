@@ -43,5 +43,10 @@
             Valami
         </span>
     </div>
+    <div>
+        <?php foreach ($data->tags as $tag) { ?>
+        <span class="badge badge-info"><?=$tag->name?></span>
+        <?php } ?>
+    </div>
 </div>
 </div>

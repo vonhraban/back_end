@@ -67,11 +67,41 @@ class QuestionController extends GxController
             throw new CHttpException(400, Yii::t('app', 'Your request is invalid.'));
     }
 
-    public function actionIndex()
+    /**
+     * Kilistázza az elérhető kérdéseket
+     * 
+     * @param string $category {all|private|public} milyen kérdések látszódjanak
+     */
+    public function actionIndex($category = 'all')
     {
-        $dataProvider = new CActiveDataProvider('Question');
+        $private_checked = '';
+        $public_checked = '';
+        $all_checked = '';
+        $condition = '';
+        if ($category == 'private') {
+            $private_checked =  'checked="checked"';
+            $condition = 't.company_id = 1';
+        }
+        if ($category == 'public') {
+            echo '----------------------------LEFUT';
+            $public_checked = 'checked="checked"';
+            $condition = 't.company_id IS NULL';
+        }
+        if ($category == 'all') {
+            $all_checked = 'checked="checked"';
+        }
+        $dataProvider = new CActiveDataProvider('Question', array(
+            'criteria' => array(
+                'with' => 'tags',
+                'condition' => $condition,
+            )
+        ));
+                
         $this->render('index', array(
             'dataProvider' => $dataProvider,
+            'all_checked' => $all_checked,
+            'private_checked' => $private_checked,
+            'public_checked' => $public_checked,
         ));
     }
 

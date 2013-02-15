@@ -116,7 +116,11 @@ class QuizController extends GxController
     {
         $model = $this->loadModel($id, 'Quiz');
         
-        $questions = new CActiveDataProvider('question');
+        $questions = new CActiveDataProvider('question', array(
+            'criteria' => array(
+                'with' => 'tags',
+            )
+        ));
         $questions->pagination->pageSize = 2;
         
         $this->render('addQuestion', array(
