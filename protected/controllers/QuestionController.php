@@ -49,9 +49,14 @@ class QuestionController extends GxController
                 $this->redirect(array('view', 'id' => $model->question_id));
             }
         }
+        $tags = Tag::model()->findAll();
+        foreach ($tags as $tag) {
+            $tags[] = $tag->name;
+        }
 
         $this->render('update', array(
             'model' => $model,
+            'tags' => $tags,
         ));
     }
 
@@ -116,6 +121,20 @@ class QuestionController extends GxController
         $this->render('admin', array(
             'model' => $model,
         ));
+    }
+    
+    /**
+     * Megjeleníti a tag-ek felsorolsához szükséges view-t
+     * 
+     * @param string $name Tag neve
+     */
+    public function actionTagAjax($name)
+    {
+        echo $this->renderPartial(
+            '_tag',
+            array('tag' => Tag::model()->findByAttributes(array('name' => $name))),
+            true
+        );
     }
 
 }

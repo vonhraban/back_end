@@ -34,5 +34,17 @@ class Question extends BaseQuestion
     {
         return $this->company_id == null;
     }
+    
+    
+    public function getDifficulties()
+    {
+        return array(
+            1 => 'Nagyon könnyű',
+            2 => 'Könnyű',
+            3 => 'Közepes',
+            4 => 'Nehéz',
+            5 => 'Nagyon nehéz',
+        );
+    }
 
 }
