@@ -17,13 +17,15 @@ function Tag(tag_id, name)
  * 
  * @param {integer} option_id
  * @param {string} text
+ * @param {boolean} correct
  */
-function Option(option_id, text)
+function Option(option_id, text, correct)
 {
     var self = this;
     
     self.text = ko.observable(text);
     self.option_id = option_id;
+    self.correct = ko.observable(correct);
 }
 
 /**
@@ -43,6 +45,11 @@ function UpdateViewModel() {
      * Option-ök, válaszlehetőségek
      */
     self.options = ko.observableArray([]);
+    
+    /**
+     * Új válaszlehetőség hozzáadásához kell
+     */
+    self.newOption = ko.observable();
 
     /**
      * Kitörli a tag-et a felületről
@@ -54,6 +61,15 @@ function UpdateViewModel() {
     }
 
     /**
+     * Kitörli a válaszlehetőséget
+     * 
+     * @param {Question} question
+     */
+    self.removeQuestion = function(question) {
+        self.options.destroy(question);
+    }
+
+    /**
      * Hozzáad egy tag-e a felülethez
      * 
      * @param {integer} tag_id
@@ -61,6 +77,11 @@ function UpdateViewModel() {
      */
     self.addTag = function(tag_id, name) {
         self.tags.push(new Tag(tag_id, name));
+    }
+
+    self.addOption = function() {
+        self.options.push(new Option(null, self.newOption(), 0));
+        self.newOption('');
     }
     
     //Kezdő adatok beállítása
@@ -75,7 +96,7 @@ function UpdateViewModel() {
     var mappedOptions = $.map(
         initOptions,
         function(item) {
-            return new Option(item.option_id, item.text);
+            return new Option(item.option_id, item.text, item.correct);
         }
     );
     self.options(mappedOptions);

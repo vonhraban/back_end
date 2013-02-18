@@ -14,14 +14,12 @@ class QuestionController extends GxController
     {
         $model = new Question;
 
-
         if (isset($_POST['Question'])) {
             $model->setAttributes($_POST['Question']);
             $relatedData = array(
                 'tags' => $_POST['Question']['tags'] === '' ? null : $_POST['Question']['tags'],
-                'quizs' => $_POST['Question']['quizs'] === '' ? null : $_POST['Question']['quizs'],
             );
-
+            
             if ($model->saveWithRelated($relatedData)) {
                 if (Yii::app()->getRequest()->getIsAjaxRequest())
                     Yii::app()->end();
@@ -45,6 +43,7 @@ class QuestionController extends GxController
             );
 
             if ($model->saveWithRelated($relatedData)) {
+                $model->saveFromJSON($_POST['options']);
                 $this->redirect(array('view', 'id' => $model->question_id));
             }
         }

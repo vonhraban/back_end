@@ -46,5 +46,33 @@ class Question extends BaseQuestion
             5 => 'Nagyon nehéz',
         );
     }
+    
+    /**
+     * 
+     * @todo: Ki kell emelni egy behavior-be
+     * @param type $json
+     */
+    public function saveFromJSON($json)
+    {
+        $items = CJSON::decode($json);
+        print_r($items);
+        foreach ($items as $item) {
+            if ($item['option_id'] != null && isset($item['_destroy'])) {
+                $option = Option::model()->findByPk($item['option_id']);
+                $option->delete();
+            }
+            else if ($item['option_id'] == null && !isset($item['_destroy'])) {
+                $option = new Option();
+                $option->question_id = $this->question_id;
+                $option->text = $item['text'];
+                $option->correct = $item['correct'];
+                $option->save();
+            } else if ($item['option_id'] != null && !isset($item['_destroy'])) {
+                $option = Option::model()->findByPk($item['option_id']);
+                $option->text = $item['text'];
+                $option->save();
+            }
+        }
+    }
 
 }
