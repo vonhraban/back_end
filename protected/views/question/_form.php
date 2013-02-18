@@ -63,8 +63,12 @@ $add_link = Yii::app()->createUrl('question/addAjax', array('id'));
         <span data-bind="html: name, click: function(){$root.removeTag(this)}" class="badge badge-info">
         </span> &nbsp;
     </div>
-    <label><?php echo GxHtml::encode($model->getRelationLabel('quizs')); ?></label>
-    <?php echo $form->checkBoxList($model, 'quizs', GxHtml::encodeEx(GxHtml::listDataEx(Quiz::model()->findAllAttributes(null, true)), false, true)); ?>
+    
+    <div data-bind="foreach: options" >
+        <input type="text" data-bind="text: text, name: name" />
+        <span >
+        </span> &nbsp;
+    </div>
 
     <?php
     echo GxHtml::submitButton(Yii::t('app', 'Save'));

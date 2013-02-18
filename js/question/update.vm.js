@@ -13,6 +13,20 @@ function Tag(tag_id, name)
 }
 
 /**
+ * 
+ * 
+ * @param {integer} option_id
+ * @param {string} text
+ */
+function Option(option_id, text)
+{
+    var self = this;
+    
+    self.text = ko.observable(text);
+    self.option_id = option_id;
+}
+
+/**
  * Question módosítása
  * 
  * @returns {undefined}
@@ -20,8 +34,15 @@ function Tag(tag_id, name)
 function UpdateViewModel() {
     var self = this;   
 
-    // Editable data
+    /**
+     * Tagek
+     */
     self.tags = ko.observableArray([]);
+    
+    /**
+     * Option-ök, válaszlehetőségek
+     */
+    self.options = ko.observableArray([]);
 
     /**
      * Kitörli a tag-et a felületről
@@ -50,6 +71,15 @@ function UpdateViewModel() {
         }
     );
     self.tags(mappedTags);
+    
+    var mappedOptions = $.map(
+        initOptions,
+        function(item) {
+            return new Option(item.option_id, item.text);
+        }
+    );
+    self.options(mappedOptions);
+    
 }
 
 var questionVM = new UpdateViewModel();

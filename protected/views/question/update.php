@@ -27,4 +27,5 @@ $this->renderPartial('_form', array(
 <script type="text/javascript">
     //Kezdő adatok
     var initTags = <?=CJSON::encode($model->tags)?>;
+    var initOptions = <?=CJSON::encode($model->options)?>;
 </script>

@@ -42,7 +42,6 @@ class QuestionController extends GxController
             $model->setAttributes($_POST['Question']);
             $relatedData = array(
                 'tags' => $_POST['Question']['tags'] === '' ? null : $_POST['Question']['tags'],
-                'quizs' => $_POST['Question']['quizs'] === '' ? null : $_POST['Question']['quizs'],
             );
 
             if ($model->saveWithRelated($relatedData)) {
