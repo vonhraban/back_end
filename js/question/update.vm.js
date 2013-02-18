@@ -25,7 +25,7 @@ function Option(option_id, text, correct)
     
     self.text = ko.observable(text);
     self.option_id = option_id;
-    self.correct = ko.observable(correct);
+    self.correct = ko.observable(correct == 1);
 }
 
 /**

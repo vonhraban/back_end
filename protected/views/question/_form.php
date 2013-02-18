@@ -82,7 +82,7 @@ $add_link = Yii::app()->createUrl('question/addAjax', array('id'));
     </form>
     <ol data-bind="foreach: options" >
         <li>
-            <input type="checkbox" data-bind="checked: correct == 1">
+            <input type="checkbox" data-bind="checked: correct">
             <input type="text" class="input-xxlarge" data-bind="value: text" />
             <i class="icon icon-remove" data-bind="click: $root.removeQuestion" ></i>
         </li>

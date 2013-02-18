@@ -55,7 +55,7 @@ class Question extends BaseQuestion
     public function saveFromJSON($json)
     {
         $items = CJSON::decode($json);
-        print_r($items);
+        //print_r($items); exit;
         foreach ($items as $item) {
             if ($item['option_id'] != null && isset($item['_destroy'])) {
                 $option = Option::model()->findByPk($item['option_id']);
@@ -70,6 +70,7 @@ class Question extends BaseQuestion
             } else if ($item['option_id'] != null && !isset($item['_destroy'])) {
                 $option = Option::model()->findByPk($item['option_id']);
                 $option->text = $item['text'];
+                $option->correct = $item['correct'] == 1 ? '1' : 0;
                 $option->save();
             }
         }
