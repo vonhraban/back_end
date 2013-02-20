@@ -17,12 +17,12 @@
             );
             $this->widget('zii.widgets.jui.CJuiButton', array(
                 'name' => 'add_' . $data->question_id,
-                'caption' => ($data->isPublic()) ? 'Módosít': 'Klónoz',
+                'caption' => ($data->isPublic()) ? 'Klónoz': 'Módosít',
                 'buttonType' => 'link',
                 'value' => 'button1',
                 'url' => Yii::app()->createUrl('question/update', array('id' => $data->question_id)),
                 'htmlOptions' => array(
-                    'class' => ($data->isPublic()) ? 'btn btn-primary' : 'btn btn-success',
+                    'class' => ($data->isPublic()) ? 'btn btn-success' : 'btn btn-primary',
                 ),
             ));
             ?>
