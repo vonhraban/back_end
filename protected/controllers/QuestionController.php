@@ -71,11 +71,13 @@ class QuestionController extends GxController
     }
 
     /**
-     * Kilistázza az elérhető kérdéseket
+     * Kilistázza az elérhető kérdéseket. Ha van megadva $quiz_id, 
+     * akkor a kérdést hozzá is lehet adni a quiz-hez.
      * 
      * @param string $category {all|private|public} milyen kérdések látszódjanak
+     * @param integer $quiz_id Melyik quiz-hez adjuk hozzá.
      */
-    public function actionIndex($category = 'all')
+    public function actionIndex($category = 'all', $quiz_id = null)
     {
         $private_checked = '';
         $public_checked = '';
@@ -84,12 +86,10 @@ class QuestionController extends GxController
         if ($category == 'private') {
             $private_checked =  'checked="checked"';
             $condition = 't.company_id = ' . Yii::app()->user->companyId;
-        }
-        if ($category == 'public') {
+        } else if ($category == 'public') {
             $public_checked = 'checked="checked"';
             $condition = 't.company_id IS NULL';
-        }
-        if ($category == 'all') {
+        } else {
             $condition = 't.company_id IS NULL OR t.company_id = ' . Yii::app()->user->companyId;
             $all_checked = 'checked="checked"';
         }
@@ -105,6 +105,7 @@ class QuestionController extends GxController
             'all_checked' => $all_checked,
             'private_checked' => $private_checked,
             'public_checked' => $public_checked,
+            'quiz_id' => $quiz_id,
         ));
     }
 

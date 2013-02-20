@@ -108,28 +108,6 @@ class QuizController extends GxController
     }
     
     /**
-     * Új kérdést lehet hozzáadni a quiz-hez
-     * 
-     * @param integer $id
-     */
-    public function actionAddQuestion($id)
-    {
-        $model = $this->loadModel($id, 'Quiz');
-        
-        $questions = new CActiveDataProvider('question', array(
-            'criteria' => array(
-                'with' => 'tags',
-            )
-        ));
-        $questions->pagination->pageSize = 2;
-        
-        $this->render('addQuestion', array(
-            'model' => $model,
-            'questions' => $questions,
-        ));
-    }
-    
-    /**
      * Ajax-al hozzáad egy kérdést a quiz-hez, vagy elvesz.
      * Ha már benne volt az adott kérdés a quiz-ben, akkor elvesz.
      * Egyébként pedig hozzáadja.
@@ -147,9 +125,10 @@ class QuizController extends GxController
             $question->addElements('quizs', array($quiz_id));
         }
         
-        echo $this->renderPartial('_question', array(
+        echo $this->renderPartial('//question/_view', array(
             'data' => $question,
-            'quiz' => $quiz
+            'quiz_id' => $quiz->quiz_id,
+            'btn' => 'btn',
         ));
     }
     
