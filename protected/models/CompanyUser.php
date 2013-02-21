@@ -8,11 +8,5 @@ class CompanyUser extends BaseCompanyUser
         return parent::model($className);
     }
     
-    public function behaviors()
-    {
-        return array(
-            'BcryptBehavior',
-        );
-    }
 
 }
