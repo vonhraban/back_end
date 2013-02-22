@@ -12,14 +12,5 @@ class Quiz extends BaseQuiz
     {
         return '<span class="inlinebar">1,4,4,7,5,9,10</span>';
     }
-    
-    public function beforeSave()
-    {
-        if ($this->isNewRecord) {
-            $this->hash = md5($this->quiz_id);
-        }
-        
-        return parent::beforeSave();
-    }
 
 }
