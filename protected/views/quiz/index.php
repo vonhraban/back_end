@@ -28,7 +28,7 @@ $this->menu = array(
                 array('name' => 'name', 'header' => 'Név'),
                 array('name' => 'active', 'header' => 'Aktív'),
                 array('name' => 'date_updated', 'header' => 'Utolsó módosítás'),
-                array('name' => 'stats', 'header' => 'Próbálkozások (utóbbi 1 hét)', 'type' => 'raw'),
+                array('name' => 'dailyStats', 'header' => 'Próbálkozások (utóbbi 1 hét)', 'type' => 'raw'),
                 array(
                     'class' => 'CLinkColumn',
                     'label' => 'Megtekint',

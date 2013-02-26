@@ -2,7 +2,10 @@
 
 class QuizResult extends BaseQuizResult
 {
-	public static function model($className=__CLASS__) {
-		return parent::model($className);
-	}
+    
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
 }
