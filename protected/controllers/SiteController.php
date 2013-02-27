@@ -28,9 +28,36 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        $this->render('index');
+        $company = Company::model()->findByPk(Yii::app()->user->companyId);
+        /* Ilyen formátumra kell hozni a tömböt:
+        $chartData = array(
+            'label' => "Teszt 1",
+            'data' =>  array(array(1, 1), ... ,array(30, 8)),
+            'lines' => array('fillColor' => "#f2f7f9"),
+            'points' => array('fillColor' => "#88bbc8")
+        );
+        */
+        $chartData = array();
+        $quizzis = $company->quizs;
+        foreach ($quizzis as $quiz) {
+            $data = array();
+            $stat = $quiz->getStats('2013-01-29', '2013-02-27');
+            $i = 1;
+            foreach ($stat as $item) {
+                $data[] = array($i++, $item);
+            }
+            
+            $chartData[] = array(
+                'label' => $quiz->name,
+                'data' =>  $data,
+                //'lines' => array('fillColor' => "#f2f7f9"),
+                //'points' => array('fillColor' => '88bbc8')
+            );
+        }
+        $this->render('index', array(
+            'company' => $company,
+            'chartData' => $chartData,
+        ));
     }
 
     /**

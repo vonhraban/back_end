@@ -30,7 +30,7 @@ class Quiz extends BaseQuiz
             Inner Join `quiz` ON `quiz`.`quiz_id` = `quiz_result`.`quiz_id`
             WHERE
             `quiz_result`.date_created BETWEEN :start AND :end
-            AND `quiz`.company_id = ' . $this->quiz_id . '
+            AND `quiz`.quiz_id = ' . $this->quiz_id . '
             GROUP BY `date`
             ORDER BY `date`
             ';
@@ -62,6 +62,12 @@ class Quiz extends BaseQuiz
         return $stat;
     }
     
+    /**
+     * Kiszámítja, hogy hányan töltötték ki a tesztet az elmult 7 napban.
+     * Beleértve a mait is.
+     * 
+     * @return string HTML tag, ami tartalmazza a statisztikát
+     */
     public function getDailyStats()
     {
         $ret = $this->getStats(
