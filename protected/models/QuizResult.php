@@ -7,5 +7,15 @@ class QuizResult extends BaseQuizResult
     {
         return parent::model($className);
     }
+    
+    public function getScore()
+    {
+        return '10 %';
+    }
+    
+    public function getDuration()
+    {
+        return '46 perc';
+    }
 
 }

@@ -41,7 +41,10 @@ class SiteController extends Controller
         $quizzis = $company->quizs;
         foreach ($quizzis as $quiz) {
             $data = array();
-            $stat = $quiz->getStats('2013-01-29', '2013-02-27');
+            $stat = $quiz->getStats(
+                    date('Y-m-d', mktime(0, 0, 0, date('m')  , date('d') - 29, date('Y'))),
+                    date('Y-m-d', mktime(0, 0, 0, date('m')  , date('d'), date('Y')))
+            );
             $i = 1;
             foreach ($stat as $item) {
                 $data[] = array($i++, $item);
@@ -50,13 +53,24 @@ class SiteController extends Controller
             $chartData[] = array(
                 'label' => $quiz->name,
                 'data' =>  $data,
-                //'lines' => array('fillColor' => "#f2f7f9"),
-                //'points' => array('fillColor' => '88bbc8')
             );
         }
+        
+        //utolsó 10 kitöltő adatai
+        $dataProvider = new CActiveDataProvider('QuizResult', array(
+            'criteria' => array(
+                'with' => array('quiz', 'user'),
+                'condition' => 'quiz.company_id =' . Yii::app()->user->companyId,
+                'order' => 't.date_created DESC'
+            ),
+            'pagination'=>array(
+                'pageSize'=>10,
+            ),
+        ));
         $this->render('index', array(
             'company' => $company,
             'chartData' => $chartData,
+            'dataProvider' => $dataProvider,
         ));
     }
 
