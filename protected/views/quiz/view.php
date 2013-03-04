@@ -67,6 +67,14 @@ $this->widget('zii.widgets.jui.CJuiButton', array(
             </th>
         </tr>
     </thead>
+    <tbody data-bind="foreach: challenges">
+        <tr class="odd">
+            <td data-bind="text: name" /></td>
+            <td data-bind="text: score" /></td>
+            <td data-bind="text: difficulty"></td>
+            <td><a href="#" data-bind="click: function(){questionVM.removeQuestion('<?=$link?>', this)}">Törlés</a></td>
+        </tr>
+    </tbody>
     <tbody data-bind="foreach: questions">
         <tr class="odd">
             <td data-bind="text: name" /></td>
@@ -80,4 +88,5 @@ $this->widget('zii.widgets.jui.CJuiButton', array(
 <script type="text/javascript">
     //Kezdő adatok
     var initQuestions = <?=CJSON::encode($questions)?>;
+    var initChallenges = <?=CJSON::encode($challenges)?>;
 </script>

@@ -25,9 +25,20 @@ class QuizController extends GxController
         $criteria->together = true;
         $questions = Question::model()->findAll($criteria);
         
+        $criteria = new CDbCriteria();
+        $criteria->with = 'quizs';
+        $criteria->condition = 'quizs.quiz_id = :quiz_id';
+        $criteria->order = $sort;
+        $criteria->params = array(
+            ':quiz_id' => $id,
+        );
+        $criteria->together = true;
+        $challenges = Challenge::model()->findAll($criteria);
+        
         $this->render('view', array(
             'model' => $this->loadModel($id, 'Quiz'),
             'questions' => $questions,
+            'challenges' => $challenges,
         ));
     }
     
