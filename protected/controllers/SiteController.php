@@ -3,6 +3,30 @@
 class SiteController extends Controller
 {
 
+    public function accessRules()
+    {
+        return array(
+            array(
+                'allow',
+                'actions' => array('login', 'error'),
+                'users' => array('*'),
+            ),
+            array(
+                'allow',
+                'actions' => array('index', 'logout', 'registration'),
+                'users' => array('@'),
+            ),
+            array('deny', // deny all users
+                'users' => array('*'),
+            ),
+        );
+    }
+    
+    public function filters()
+    {
+        return array( 'accessControl' );
+    }
+    
     /**
      * Declares class-based actions.
      */
