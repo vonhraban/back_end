@@ -13,7 +13,7 @@ class SiteController extends Controller
             ),
             array(
                 'allow',
-                'actions' => array('index', 'logout', 'registration'),
+                'actions' => array('index', 'logout', 'registration', 'page'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users

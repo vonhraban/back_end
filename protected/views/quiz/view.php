@@ -1,6 +1,13 @@
 <?php
 Yii::app()->getClientScript()->registerScriptFile(Yii::app()->baseUrl . '/js/quiz/view.vm.js', CClientScript::POS_END);
-$link = Yii::app()->createUrl('quiz/addQuestionAjax', array('quiz_id' => $model->quiz_id, 'question_id' => 'replace_question_id'));
+$link = Yii::app()->createUrl(
+    'quiz/addQuestionAjax',
+    array(
+        'quiz_id' => $model->quiz_id,
+        'question_id' => 'replace_question_id',
+        'type' => 'replace_type',
+    )
+);
 ?>
 
 <?php
@@ -45,8 +52,19 @@ $this->widget('zii.widgets.jui.CJuiButton', array(
     'buttonType' => 'link',
     'caption' => 'Kérdés hozzáadása',
     'value' => 'button1',
-    'htmlOptions' => array('class' => 'btn btn-primary'),
+    'htmlOptions' => array('class' => 'btn-primary'),
     'url' => array('question/index', 'quiz_id' => $model->quiz_id),
+    //'onclick' => new CJavaScriptExpression('function(){alert("Save button has been clicked"); this.blur(); return false;}'),
+));
+?>
+<?php
+$this->widget('zii.widgets.jui.CJuiButton', array(
+    'name' => 'button2',
+    'buttonType' => 'link',
+    'caption' => 'Programozási feladat hozzáadása',
+    'value' => 'button1',
+    'htmlOptions' => array('class' => 'btn-primary'),
+    'url' => array('challenge/index', 'quiz_id' => $model->quiz_id),
     //'onclick' => new CJavaScriptExpression('function(){alert("Save button has been clicked"); this.blur(); return false;}'),
 ));
 ?>
@@ -67,17 +85,9 @@ $this->widget('zii.widgets.jui.CJuiButton', array(
             </th>
         </tr>
     </thead>
-    <tbody data-bind="foreach: challenges">
-        <tr class="odd">
-            <td data-bind="text: name" /></td>
-            <td data-bind="text: score" /></td>
-            <td data-bind="text: difficulty"></td>
-            <td><a href="#" data-bind="click: function(){questionVM.removeQuestion('<?=$link?>', this)}">Törlés</a></td>
-        </tr>
-    </tbody>
     <tbody data-bind="foreach: questions">
         <tr class="odd">
-            <td data-bind="text: name" /></td>
+            <td data-bind="html: name" /></td>
             <td data-bind="text: score" /></td>
             <td data-bind="text: difficulty"></td>
             <td><a href="#" data-bind="click: function(){questionVM.removeQuestion('<?=$link?>', this)}">Törlés</a></td>

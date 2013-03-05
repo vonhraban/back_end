@@ -125,22 +125,46 @@ class QuizController extends GxController
      * 
      * @param integer $quiz_id
      * @param integer $question_id
+     * @parma string $type {challenge|question}
      */
-    public function actionAddQuestionAjax($quiz_id, $question_id)
+    public function actionAddQuestionAjax($quiz_id, $question_id, $type = 'question')
     {
-        $question = Question::model()->findByPk($question_id);
+        if ($type == 'question') {
+            $question = Question::model()->findByPk($question_id);
+        } else {
+            $question = Challenge::model()->findByPk($question_id);
+        }
         $quiz = Quiz::model()->findByPk($quiz_id);
         if ($question->isInQuiz($quiz_id)) {
             $question->deleteElements('quizs', array($quiz_id));
         } else {
             $question->addElements('quizs', array($quiz_id));
         }
+        if ($type == 'question') {
+            echo $this->renderPartial('//question/_view', array(
+                'data' => $question,
+                'quiz_id' => $quiz->quiz_id,
+                'btn' => 'btn',
+            ));
+        }
+    }
+    
+    public function actionToggleChallengeAjax($quiz_id, $challenge_id)
+    {
+        $challenge = $this->loadModel($challenge_id, 'Challenge');
         
-        echo $this->renderPartial('//question/_view', array(
-            'data' => $question,
-            'quiz_id' => $quiz->quiz_id,
-            'btn' => 'btn',
-        ));
+        $return = array();
+        if ($challenge->isInQuiz($quiz_id)) {
+            $challenge->deleteElements('quizs', array($quiz_id));
+            $return['class'] = 'btn-primary ui-button ui-widget ui-state-default ui-corner-all';
+            $return['value'] = 'Hozzáad';
+        } else {
+            $challenge->addElements('quizs', array($quiz_id));
+            $return['class'] = 'btn-danger ui-button ui-widget ui-state-default ui-corner-all ui-state-hover';
+            $return['value'] = 'Kivesz';
+        }
+        
+        echo CJSON::encode($return);
     }
     
 }

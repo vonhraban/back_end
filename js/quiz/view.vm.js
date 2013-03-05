@@ -14,7 +14,9 @@ function Question(question_id, name, score, difficulty, type)
     self.question_id = question_id;
     self.challenge = (type == 'challenge');
     if (self.challenge) {
-        self.name(self.name() + ' - feladat');
+        self.name('<span class="icon icon-hdd"></span> ' + self.name());
+    } else {
+        self.name('<span class="icon icon-list"></span> ' + self.name());
     }
 }
 
@@ -26,9 +28,21 @@ function QuestionsViewModel() {
     self.questions = ko.observableArray([]);
     self.challenges = ko.observableArray([]);
 
+    /**
+     * Link = quiz/addQuestionAjax
+     * 
+     * @param {type} link
+     * @param {type} question
+     * @returns {undefined}
+     */
     self.removeQuestion = function(link, question) {
         self.questions.destroy(question);
         link = link.replace('replace_question_id', question.question_id);
+        if (question.challenge) {
+            link = link.replace('replace_type', 'challenge');
+        } else {
+            link = link.replace('replace_type', 'question');
+        }
         $.get(link);
     }
     
