@@ -99,7 +99,11 @@ class QuizController extends GxController
 
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Quiz');
+        $dataProvider = new CActiveDataProvider('Quiz', array(
+            'criteria' => array(
+                'condition' => 'company_id = ' . Yii::app()->user->companyId
+            )
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));

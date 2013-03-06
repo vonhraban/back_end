@@ -63,7 +63,7 @@ $baseUrl = Yii::app()->theme->baseUrl;
                                 'name' => 'update',
                                 'caption' => 'Módosít',
                                 'buttonType' => 'link',
-                                'url' => Yii::app()->createUrl('question/index'),
+                                'url' => Yii::app()->createUrl('quiz/index'),
                                 'value' => 'button1',
                                 'htmlOptions' => array(
                                     'class' => 'btn-primary ui-button ui-widget ui-state-default ui-corner-all',
@@ -88,7 +88,7 @@ $baseUrl = Yii::app()->theme->baseUrl;
                                 'name' => 'view',
                                 'caption' => 'Megnéz',
                                 'buttonType' => 'link',
-                                'url' => Yii::app()->createUrl('question/index'),
+                                'url' => Yii::app()->createUrl('candidate/index'),
                                 'value' => 'button1',
                                 'htmlOptions' => array(
                                     'class' => 'btn-primary ui-button ui-widget ui-state-default ui-corner-all',
@@ -114,8 +114,8 @@ $baseUrl = Yii::app()->theme->baseUrl;
             'dataProvider' => $dataProvider,
             'template' => "{items} {pager}",
             'columns' => array(
+                array('name' => 'ResultPercentage', 'header' => 'Eredmény'),
                 array('name' => 'quiz.name', 'header' => 'Kitöltött teszt'),
-                array('name' => 'score', 'header' => 'Eredmény'),
                 array('name' => 'duration', 'header' => 'Időtartam'),
                 array('name' => 'date_created', 'header' => 'Dátum'),
                 array(

@@ -19,6 +19,7 @@
                     'encodeLabel' => false,
                     'items' => array(
                         array('label' => 'Dashboard', 'url' => array('/site/index')),
+                        array('label' => 'Jelentkezők', 'url' => array('candidate/index')),
                         array('label' => 'Tesztek', 'url' => array('quiz/index')),
                         array('label' => 'Kérésbank', 'url' => array('question/index')),
                         /* array('label'=>'Gii generated', 'url'=>array('customer/index')), */
