@@ -69,9 +69,9 @@ class SiteController extends Controller
                     date('Y-m-d', mktime(0, 0, 0, date('m')  , date('d') - 29, date('Y'))),
                     date('Y-m-d', mktime(0, 0, 0, date('m')  , date('d'), date('Y')))
             );
-            $i = 1;
+            $i = 29;
             foreach ($stat as $item) {
-                $data[] = array($i++, $item);
+                $data[] = array($i--, $item);
             }
             
             $chartData[] = array(

@@ -39,7 +39,11 @@ $this->breadcrumbs = array(
               <tr>
               <td width="50%">
                   <span class="badge badge-info"><?=$score['name']?></span>
-                  <?=  number_format($percentage)?>%
+              </td>
+              <td width="10%">
+                  <div>
+                      <?=  number_format($percentage)?>%
+                  </div>
               </td>
               <td>
               	<div class="progress progress-danger">
@@ -50,7 +54,16 @@ $this->breadcrumbs = array(
             <?php } ?>
           </tbody>
         </table>
-        
+        <?php
+        $this->widget('zii.widgets.jui.CJuiButton', array(
+                'name' => 'edit_' . $model->quiz_result_id,
+                'caption' => 'Teszt megtekintése',
+                'value' => 'button2',
+                'htmlOptions' => array(
+                    'class' => ' btn-success ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only',
+                ),
+            ));
+        ?>
         
     </div>
 </div>

@@ -8,11 +8,6 @@ class QuizResult extends BaseQuizResult
         return parent::model($className);
     }
     
-    public function getScore()
-    {
-        return '10 %';
-    }
-    
     /**
      * Visszadja, hogy tag-enként hány százalékot ért el
      */
