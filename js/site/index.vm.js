@@ -95,4 +95,4 @@ function initQuizChart(chartData) {
     });
 }
 
-initQuizChart(chartData);
+initQuizChart(chartData);123
